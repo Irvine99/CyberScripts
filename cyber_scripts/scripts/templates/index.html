@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accueil - CyberScripts</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Flowbite CSS & JS -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+
+  <!-- Heroicons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    /* Animation pour boutons */
+    .btn-float {
+      transition: transform 0.3s ease;
+    }
+    .btn-float:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-indigo-50 via-white to-indigo-50 min-h-screen flex flex-col">
+
+  <!-- Header / Hero -->
+  <header class="flex-grow flex items-center justify-center px-6">
+    <div
+      class="max-w-4xl w-full bg-white rounded-3xl shadow-2xl p-12 sm:p-16 text-center"
+      data-aos="fade-up"
+    >
+      <h1
+        class="text-5xl font-extrabold text-indigo-700 mb-6 tracking-tight leading-tight"
+      >
+        Bienvenue sur <span class="text-indigo-900">CyberScripts</span>
+      </h1>
+      <p class="text-lg text-indigo-600 mb-10 max-w-xl mx-auto">
+        Découvrez, gérez et exécutez vos scripts en toute simplicité et sécurité.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row justify-center gap-8 max-w-md mx-auto"
+      >
+        <a
+          href="{% url 'scripts:liste_scripts' %}"
+          class="btn-float flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-indigo-600 text-white text-xl font-semibold shadow-lg hover:bg-indigo-700 transition"
+        >
+          <!-- Icon Utiliser un script -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 stroke-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+          Utiliser un script
+        </a>
+
+        <a
+          href="{% url 'scripts:manage_scripts' %}"
+          class="btn-float flex items-center justify-center gap-3 px-8 py-4 rounded-xl border-2 border-indigo-600 text-indigo-600 text-xl font-semibold shadow-lg hover:bg-indigo-600 hover:text-white transition"
+        >
+          <!-- Icon Gérer les scripts -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 stroke-indigo-600 group-hover:stroke-white transition"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12h6m-6 4h6m-9-8h12M4 6h16M4 18h16"
+            />
+          </svg>
+          Gérer les scripts
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Footer -->
+  <footer
+    class="text-center py-6 text-indigo-600 font-medium bg-indigo-100 mt-auto"
+  >
+    © 2025 CyberScripts. Tous droits réservés.
+  </footer>
+
+  <script>
+    // Initialize Feather icons if needed
+    feather.replace();
+  </script>
+</body>
+</html>

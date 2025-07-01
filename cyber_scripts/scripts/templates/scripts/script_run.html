@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Exécution du script : {{ script.nom }}</h1>
+
+<pre class="bg-gray-100 p-4 rounded mb-4 whitespace-pre-wrap">{{ script.code }}</pre>
+
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-indigo" type="submit">Exécuter</button>
+</form>
+
+{% if output %}
+<h2>Sortie :</h2>
+<pre class="bg-black text-green-400 p-4 rounded whitespace-pre-wrap">{{ output }}</pre>
+{% endif %}
+
+<a href="{% url 'scripts:liste_scripts' %}">Retour à la liste</a>
+{% endblock %}

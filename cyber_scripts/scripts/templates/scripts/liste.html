@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mes Scripts Cyber</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <header class="bg-white shadow-md p-6 mb-8">
+        <h1 class="text-3xl font-extrabold text-indigo-600">Liste des scripts Cyber</h1>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4">
+
+        <section class="mb-12">
+            {% if scripts %}
+            <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {% for script in scripts %}
+                <li class="bg-white rounded-lg shadow p-6 border border-gray-200 hover:shadow-lg transition">
+                    <h2 class="text-xl font-semibold text-indigo-700 mb-2">{{ script.nom }}</h2>
+                    <p class="text-gray-600 mb-4">{{ script.description }}</p>
+                    <pre class="bg-gray-100 p-4 rounded overflow-x-auto text-sm font-mono">{{ script.code }}</pre>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-center text-gray-500 italic">Aucun script pour l’instant.</p>
+            {% endif %}
+        </section>
+
+        <!--  -->
+        <section class="">
+            <div class="pagination flex justify-center space-x-2 mt-6">
+                {% if scripts.has_previous %}
+                <a href="?page={{ scripts.previous_page_number }}" class="btn">Précédent</a>
+                {% endif %}
+
+                <span>Page {{ scripts.number }} sur {{ scripts.paginator.num_pages }}</span>
+
+                {% if scripts.has_next %}
+                <a href="?page={{ scripts.next_page_number }}" class="btn">Suivant</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <!--  -->
+        <section class="">
+            <form method="get" class="mb-4">
+                <input type="text" name="q" placeholder="Rechercher un script..." value="{{ request.GET.q }}"
+                    class="input input-bordered w-full max-w-xs" />
+                <button type="submit" class="btn btn-indigo mt-2">Rechercher</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+</body>
+
+</html>

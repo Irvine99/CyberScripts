@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Supprimer un script</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 font-sans">
+
+<header class="bg-white shadow p-6 mb-8">
+    <h1 class="text-3xl font-extrabold text-red-600">Supprimer un script</h1>
+</header>
+
+<main class="max-w-xl mx-auto px-4 text-center">
+    <p class="mb-6">Voulez-vous vraiment supprimer le script <strong>{{ object.nom }}</strong> ? Cette action est irréversible.</p>
+    <form method="post" class="inline-block">
+        {% csrf_token %}
+        <button type="submit"
+            class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold transition">
+            Supprimer
+        </button>
+        <a href="{% url 'scripts:manage_scripts' %}"
+           class="ml-4 text-indigo-600 hover:underline font-semibold">Annuler</a>
+    </form>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+</body>
+</html>
