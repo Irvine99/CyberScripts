@@ -11,6 +11,10 @@ path('scripts/manage/create/', views.ScriptCreateView.as_view(), name='script_cr
 path('scripts/manage/<int:pk>/update/', views.ScriptUpdateView.as_view(), name='script_update'),
 path('scripts/manage/<int:pk>/delete/', views.ScriptDeleteView.as_view(), name='script_delete'),
 path('scripts/<int:pk>/run/', views.ScriptRunView.as_view(), name='script_run'),
+path('<int:pk>/', views.ScriptDetailView.as_view(), name='script_detail'),
 
-path('signup/', views.signup, name='signup'), 
+path('signup/', views.signup, name='signup'),
+
+# script
+path('nmap/', views.NmapScanView.as_view(), name='nmap_scan'),
 ]
