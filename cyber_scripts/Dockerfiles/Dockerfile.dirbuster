@@ -1,0 +1,17 @@
+# Utiliser une image officielle OpenJDK comme image de base
+FROM openjdk:8-jdk-alpine
+
+# Installer les paquets nécessaires
+RUN apk update && apk add --no-cache curl ca-certificates bash wget
+
+# Créer un répertoire pour les wordlists
+RUN mkdir -p /wordlists
+
+# Télécharger le fichier JAR de DirBuster à partir du lien GitHub correct
+RUN wget -L https://github.com/KajanM/DirBuster/releases/download/DirBuster-0.12/DirBuster-0.12.jar -O /usr/local/bin/dirbuster.jar
+
+# Télécharger une wordlist par défaut de SecLists
+RUN wget -L https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/Common-DB-Backups.txt -O /wordlists/Common-DB-Backups.txt
+
+# Définir le point d'entrée pour exécuter DirBuster
+ENTRYPOINT ["java", "-jar", "/usr/local/bin/dirbuster.jar"]

@@ -1,0 +1,25 @@
+# Utilise une image Python officielle
+FROM python:3.11-slim
+
+# Variables d'environnement pour éviter de générer des fichiers .pyc et buffer stdout/stderr
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Création du dossier app
+WORKDIR /app
+
+# Copier requirements.txt
+COPY requirements.txt /app/
+
+# Installer les dépendances (dont requests et Django)
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Copier tout le projet dans /app
+COPY . /app/
+
+# Exposer le port de Django
+EXPOSE 8000
+
+# Commande de démarrage
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard Reconnaissance Cyber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6 font-sans">
+    {% include 'module/header.html' %}
+    <h1 class="text-3xl font-bold text-indigo-600 mb-6">Dashboard Reconnaissance Cyber</h1>
+
+    <form method="post" class="mb-6 bg-white p-6 rounded shadow">
+        {% csrf_token %}
+        <label for="target" class="block font-semibold mb-2">Domaine ou IP :</label>
+        <input type="text" name="target" id="target" placeholder="example.com ou 8.8.8.8" required
+            class="w-full border border-gray-300 rounded p-2 mb-4" value="{{ target|default:'' }}">
+        <button type="submit"
+            class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Lancer</button>
+    </form>
+
+    {% if error %}
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-6">{{ error }}</div>
+    {% endif %}
+
+    {% if dns_records %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">DNS Records</h2>
+        <ul>
+            {% for ip in dns_records %}
+            <li>{{ ip }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% elif dns_error %}
+    <div class="mb-4 text-red-600">{{ dns_error }}</div>
+    {% endif %}
+
+    {% if whois %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">Whois</h2>
+        <pre>{{ whois }}</pre>
+    </section>
+    {% elif whois_error %}
+    <div class="mb-4 text-red-600">{{ whois_error }}</div>
+    {% endif %}
+
+    {% if http_headers %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">HTTP Headers (Status: {{ status_code }})</h2>
+        <pre>{{ http_headers|dictsort:"0" }}</pre>
+    </section>
+    {% elif http_error %}
+    <div class="mb-4 text-red-600">{{ http_error }}</div>
+    {% endif %}
+
+    {% if cms_detected %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">CMS détectés</h2>
+        <ul>
+            {% for c in cms_detected %}
+            <li>{{ c }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if open_ports %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">Ports ouverts</h2>
+        <ul>
+            {% for p in open_ports %}
+            <li>{{ p }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if ssl_info %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">Info SSL</h2>
+        {% if ssl_info.error %}
+        <p class="text-red-600">{{ ssl_info.error }}</p>
+        {% else %}
+        <p><strong>Émetteur :</strong> {{ ssl_info.issuer.CN }}</p>
+        <p><strong>Sujet :</strong> {{ ssl_info.subject.CN }}</p>
+        <p><strong>Valide du :</strong> {{ ssl_info.notBefore }}</p>
+        <p><strong>Valide jusqu’au :</strong> {{ ssl_info.notAfter }}</p>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    {% if shodan_data %}
+    <section class="mb-4 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg text-indigo-700 mb-2">Shodan Data</h2>
+        <pre>{{ shodan_data|json_script:"shodan" }}</pre>
+    </section>
+    {% elif shodan_error %}
+    <div class="mb-4 text-red-600">{{ shodan_error }}</div>
+    {% endif %}
+    {% include 'module/footer.html' %}
+</body>
+
+</html>

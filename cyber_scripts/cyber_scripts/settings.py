@@ -53,6 +53,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'cyber_scripts.urls'
 
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import DirbusterScanView,IPCalculatorView,CVECheckerView,WebReconView,ReconDashboardView
 
 app_name = 'scripts'
 
@@ -17,4 +18,9 @@ path('signup/', views.signup, name='signup'),
 
 # script
 path('nmap/', views.NmapScanView.as_view(), name='nmap_scan'),
+path('dirbuster/', DirbusterScanView.as_view(), name='dirbuster'),
+path('ipcalculator/', IPCalculatorView.as_view(), name='ipcalculator'),
+path('cve-checker/', CVECheckerView.as_view(), name='cve_checker'),
+path('web-recon/', WebReconView.as_view(), name='web_recon'),
+path('dashboard/' ,ReconDashboardView.as_view(), name='dashboard'),
 ]
